@@ -1,69 +1,61 @@
-alert("Bienvenido a proyecto de cotizacion, Por favor siga los pasos que se le indica")
-function Cotizador() 
-{
-let nombre = prompt("Ingrese su nombre :");
+function Producto(Marca, modelo, color, precio) {
+    this.Marca = Marca;
+    this.modelo = modelo;
+    this.color = color;
+    this.precio = precio;
+  }
+  
+  const loki = new Producto("Venzo", "Loki", "Negro", 250000);
+  const thorn = new Producto("Venzo", "Thorn", "Blanco", 300000);
+  const raptor = new Producto("Venzo", "Raptor", "Naranja", 345000);
+  const flash = new Producto("Olmo", "Flash", "Amarillo", 245000);
+  const safari = new Producto("Olmo", "Safari", "Azul", 285000);
+  const raven = new Producto("Olmo", "Raven", "Blanco/Rojo", 350000);
+  
+  const productos = [loki, thorn, raptor, flash, safari, raven];
+  
+  function mostrarProductos() {
+    let mensaje = "Estos son las bicicletas disponibles ";
+    productos.forEach((producto, index) => {
+      mensaje += `${index + 1}. Marca: ${producto.Marca}, Modelo: ${producto.modelo}, Color: ${producto.color}, Precio: $${producto.precio}\n`;
+    });
+    mensaje += "Introduce el número del producto para agregar (deja en blanco para finalizar):";
+    return mensaje;
+  }
+  
+  function agregarProducto() {
+    let selproducto = [];
+    let total = 0;
+    let seleccion;
+  
+    while (true) {
+      seleccion = prompt(mostrarProductos());
+  
+      if (seleccion === null || seleccion.trim() === "") {
+        break;
+      }
+  
+      const index = parseInt(seleccion.trim()) - 1;
+  
+      if (index >= 0 && index < productos.length) {
+        const productoSeleccionado = productos[index];
 
-if (nombre == null){
-  console.log("Error al ingresar el nombre")
-  alert("Debes ingresar un nombre")
+        selproducto.push(productoSeleccionado);
 
-} else {
-  alert("Su nombre es " + nombre);
-console.log("Su nombre es: ", nombre);
+        total += productoSeleccionado.precio;
 
-}
+        alert(`Has agregado ${productoSeleccionado.Marca} ${productoSeleccionado.modelo}. Precio añadido: $${productoSeleccionado.precio}`);
+      } else {
+        alert("Selección inválida. Por favor, elige un número de la lista.");
+      }
+    }
+  
+    return total;
+  }
+  let usuario = prompt("Ingrese su nombre");
+  alert("Su nombre es " + usuario);
+  
+  const montoFinal = agregarProducto();
+  alert("El total de la suma es: $" + montoFinal);
 
-let Monto = prompt("Ingrese el monto que sera cotizado:");
-console.log("Monto ingresadoes de $ " + Monto);
-
-function DOLAR() {
-  let MontoDolar = Monto * 1415;
-  console.log(Monto, "= $", MontoDolar);
-  alert("El monto cotizado en pesos es: $"+ MontoDolar);
-}
-
-function EURO() {
-  let MontoEuro = Monto * 1009;
-  console.log(Monto, "= $", MontoEuro);
-  alert("El monto cotizado en pesos es: $"+ MontoEuro);
-}
-
-function YEN() {
-  let MontoYen = Monto * 154;
-  console.log(Monto, "= $", MontoYen);
-  alert("El monto cotizado en pesos es: $"+ MontoYen);
-}
-
-let Moneda = prompt("Escriba alguna de las monedas mencionadas DOLAR/EURO/YEN");
-console.log("Moneda Seleccionada: " + Moneda);
-
-switch (Moneda) {
-  case "DOLAR":
-     DOLAR();
-     break;
-
-  case "EURO":
-    EURO()
-    break
-
-  case "YEN":
-    YEN()
-    break
-
-    default:
-      console.log("Error al ingresar la moneda")
-      alert("Error al ingresar una de las opciones, Por favor vuelva a escribirlo")
-}
-
-let respuesta = prompt("Desea Realizar otra cotizacion? SI/NO")
-
-switch (respuesta){
-  case "SI":
-    Cotizador();
-    
-  case "NO": break;
-}
-}
-
-Cotizador()
-
+  
